@@ -29,3 +29,10 @@ def get_sources():
             source = {"pulse_index": current_index, "device_name": device_name}
             sources.append(source)
     return sources
+
+def is_int(n):
+    try:
+        int(n)
+        return True
+    except ValueError:
+        return False
