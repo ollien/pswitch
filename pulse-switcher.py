@@ -56,6 +56,13 @@ def set_sink_input(input_index, sink_index):
         sink_index = str(sink_index)
     subprocess.Popen(["pacmd", "move-sink-input", input_index, sink_index])
 
+def set_source_output(output_index, source_index):
+    if type(output_index) == int:
+        output_index = str(output_index)
+    if type(source_index) == int:
+        source_index = str(source_index)
+    subprocess.Popen(["pacmd", "move-source-output", output_index, source_index])
+
 def set_default_sink(sink_index):
     if type(sink_index) == int:
         sink_index = str(sink_index)
