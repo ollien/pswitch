@@ -45,6 +45,12 @@ def set_default_sink(sink_index):
         sink_index = str(sink_index)
     subprocess.Popen(["pacmd", "set-default-sink", sink_index])
 
+def switch_to_sink(sink_index):
+    set_default_sink(sink_index)
+    inputs = get_sink_input_indexes()
+    for input_index in inputs:
+        set_sink_input(input_index, sink_index)
+
 def is_int(n):
     try:
         int(n)
@@ -64,7 +70,4 @@ if __name__ == "__main__":
         valid_input = is_int(selection) and 0 <= int(selection) < len(sinks)
     selection = int(selection)
     sink_index = sinks[selection]["pulse_index"]
-    set_default_sink(sink_index)
-    inputs = get_sink_input_indexes()
-    for input_index in inputs:
-        set_sink_input(input_index, sink_index)
+    switch_to_sink(sink_index)
