@@ -85,18 +85,25 @@ def switch_to_source(source_index):
     for output_index in outputs:
         set_source_output(output_index, source_index)
 
-def print_menu_and_get_index():
-    sinks = get_sinks()
-    print("Available Pulse Audio sinks:")
-    for index, sink in enumerate(sinks):
-        print("\t{index}: {name}".format(index=index, name=sink["device_name"]))
+def print_menu_and_get_index(device_type):
+    devices = None
+    if device_type == "sink":
+        devices = get_sinks()
+        print("Available Pulse Audio sinks:")
+    elif device_type == "source":
+        devices = get_sources()
+        print("Available Pulse Audio sources:")
+    else:
+        raise ValueError("device_type must be either sink or source")
+    for index, device in enumerate(devices):
+        print("\t{index}: {name}".format(index=index, name=device["device_name"]))
     valid_input = False
     selection = None
     while not valid_input:
         selection = input("? ")
-        valid_input = is_int(selection) and 0 <= int(selection) < len(sinks)
+        valid_input = is_int(selection) and 0 <= int(selection) < len(devices)
     selection = int(selection)
-    return sinks[selection]["pulse_index"]
+    return devices[selection]["pulse_index"]
 
 def is_int(n):
     try:
