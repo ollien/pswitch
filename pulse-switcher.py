@@ -36,3 +36,17 @@ def is_int(n):
         return True
     except ValueError:
         return False
+
+if __name__ == "__main__":
+    sources = get_sources()
+    print("Available Pulse Audio sources:")
+    for index, source in enumerate(sources):
+        print("\t{index}: {name}".format(index=index, name=source["device_name"]))
+    valid_input = False
+    while not valid_input:
+        selection = input("? ")
+        valid_input = is_int(selection) and 0 <= int(selection) < len(sources)
+        selection = int(selection)
+    selected_source = sources[selection]
+    print("Selected {}".format(selected_source["device_name"]))
+    #TODO: Switch audio sources
