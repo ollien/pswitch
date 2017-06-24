@@ -8,7 +8,7 @@ def get_sinks():
     pacmd_output, _ = subprocess.Popen("pacmd list-sinks",
                 shell=True, stdout=subprocess.PIPE).communicate()
     raw_sinks = re.split(r"\s\s(\s|\*)\sindex:\s(\d+)",
-            pacmd_output.decode("utf=8"))[1:]
+            pacmd_output.decode("utf-8"))[1:]
     sinks = []
     current_index = None
     is_current_active = False
