@@ -63,6 +63,8 @@ if __name__ == "__main__":
         selection = input("? ")
         valid_input = is_int(selection) and 0 <= int(selection) < len(sinks)
     selection = int(selection)
-    selected_sink = sinks[selection]
-    print("Selected {}".format(selected_sink["device_name"]))
-    #TODO: Switch audio sinks
+    sink_index = sinks[selection]["pulse_index"]
+    set_default_sink(sink_index)
+    inputs = get_sink_input_indexes()
+    for input_index in inputs:
+        set_sink_input(input_index, sink_index)
