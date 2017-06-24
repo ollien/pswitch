@@ -40,6 +40,11 @@ def get_sink_input_indexes():
                 shell = True, stdout=subprocess.PIPE).communicate()
     return get_indexes_from_pacmd_output(pacmd_output)
 
+def get_source_output_indexes():
+    pacmd_output, _ = subprocess.Popen("pacmd list-source-outputs",
+                shell = True, stdout=subprocess.PIPE).communicate()
+    return get_indexes_from_pacmd_output(pacmd_output)
+
 def get_indexes_from_pacmd_output(pacmd_output):
     index_matches = re.finditer(r"\s{4}index:\s(\d+)", pacmd_output.decode("utf-8"))
     return [int(index.groups()[0]) for index in index_matches]
