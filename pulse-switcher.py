@@ -117,10 +117,22 @@ def check_type_arg_validity(arg):
     return arg.lower() in ("o", "output", "i", "input")
 
 if __name__ == "__main__":
-    if len(sys.argv) == 1:
-        sink_index = print_menu_and_get_index()
-        switch_to_sink(sink_index)
-    elif len(sys.argv) == 2 and is_int(sys.argv[1]):
-        switch_to_sink(int(sys.argv[1]))
+    if len(sys.argv) == 2 and check_type_arg_validity(sys.argv[1]):
+        if sys.argv[1].lower() in ("o", "output"):
+            sink_index = print_menu_and_get_index("sink")
+            switch_to_sink(sink_index)
+        elif sys.argv[1].lower() in ("i", "input"):
+            source_index = print_menu_and_get_index("source")
+            switch_to_source(source_index)
+    elif len(sys.argv) == 3 and is_int(sys.argv[2]) and check_type_arg_validity(sys.argv[1]):
+        if sys.argv[1].lower() in ("o", "output"):
+            switch_to_sink(int(sys.argv[2]))
+        elif sys.argv[1].lower() in ("i", "input"):
+            switch_to_source(int(sys.argv[2]))
     else:
-        print("Usage: pulse-switcher [sink_index]")
+        print("""
+        Usage: pulse-switcher type [index]
+        Where:
+            type is input or output
+            index is a pulse audio sink index or source index
+        """)
