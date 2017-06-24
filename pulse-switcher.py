@@ -112,6 +112,10 @@ def is_int(n):
     except ValueError:
         return False
 
+#Returns true if arg is "o", "output", "i", or "input"
+def check_type_arg_validity(arg):
+    return arg.lower() in ("o", "output", "i", "input")
+
 if __name__ == "__main__":
     if len(sys.argv) == 1:
         sink_index = print_menu_and_get_index()
