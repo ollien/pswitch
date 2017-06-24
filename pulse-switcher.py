@@ -44,7 +44,7 @@ if __name__ == "__main__":
     while not valid_input:
         selection = input("? ")
         valid_input = is_int(selection) and 0 <= int(selection) < len(sinks)
-        selection = int(selection)
+    selection = int(selection)
     selected_sink = sinks[selection]
     print("Selected {}".format(selected_sink["device_name"]))
     #TODO: Switch audio sinks
