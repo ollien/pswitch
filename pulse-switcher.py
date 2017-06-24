@@ -1,6 +1,7 @@
 #! /usr/bin/env python3
 
 import subprocess
+import sys
 import re
 
 #Get all sinks from pulse and return an array of the sinks
@@ -72,5 +73,10 @@ def is_int(n):
         return False
 
 if __name__ == "__main__":
-    sink_index = print_menu_and_get_index()
-    switch_to_sink(sink_index)
+    if len(sys.argv) == 1:
+        sink_index = print_menu_and_get_index()
+        switch_to_sink(sink_index)
+    elif len(sys.argv) == 2 and is_int(sys.argv[1]):
+        switch_to_sink(int(sys.argv[1]))
+    else:
+        print("Usage: pulse-switcher [sink_index]")
