@@ -27,6 +27,12 @@ def get_sinks():
             sinks.append(sink)
     return sinks
 
+def get_sink_input_indexes():
+        pacmd_output, _ = subprocess.Popen("pacmd list-sink-inputs",
+                    shell = True, stdout=subprocess.PIPE).communicate()
+        index_matches = re.finditer(r"\s{4}index:\s(\d+)", pacmd_output.decode("utf-8"))
+        return [int(index.groups()[0]) for index in index_matches]
+
 def is_int(n):
     try:
         int(n)
