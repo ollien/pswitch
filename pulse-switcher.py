@@ -4,16 +4,19 @@ import subprocess
 import sys
 import re
 
-#Get all sinks from pulse and return an array of the sinks
 def get_sinks():
     pacmd_output, _ = subprocess.Popen("pacmd list-sinks",
                 shell=True, stdout=subprocess.PIPE).communicate()
-    raw_sinks = re.split(r"\s\s(\s|\*)\sindex:\s(\d+)",
+    return parse_pacmd_list_output(pacmd_output)
+
+#Will parse output from pacmd list-sinks and pacmd list-sources
+def parse_pacmd_list_output(pacmd_output):
+    raw_sources = re.split(r"\s\s(\s|\*)\sindex:\s(\d+)",
             pacmd_output.decode("utf-8"))[1:]
-    sinks = []
+    sources = []
     current_index = None
     is_current_active = False
-    for index, item in enumerate(raw_sinks):
+    for index, item in enumerate(raw_sources):
         if index % 3 == 0:
             is_current_active = item == "*"
             continue
@@ -24,9 +27,9 @@ def get_sinks():
             #pacmd mixes tabs and spaces in its output. Go figure.
             device_name_match = re.search(r"\t\tdevice.description\s=\s\"(.*)\"", item)
             device_name = device_name_match.groups()[0]
-            sink = {"pulse_index": current_index, "device_name": device_name}
-            sinks.append(sink)
-    return sinks
+            source = {"pulse_index": current_index, "device_name": device_name}
+            sources.append(source)
+    return sources
 
 def get_sink_input_indexes():
         pacmd_output, _ = subprocess.Popen("pacmd list-sink-inputs",
