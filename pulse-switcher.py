@@ -40,6 +40,11 @@ def set_sink_input(input_index, sink_index):
         sink_index = str(sink_index)
     subprocess.Popen(["pacmd", "move-sink-input", input_index, sink_index])
 
+def set_default_sink(sink_index):
+    if type(sink_index) == int:
+        sink_index = str(sink_index)
+    subprocess.Popen(["pacmd", "set-default-sink", sink_index])
+
 def is_int(n):
     try:
         int(n)
