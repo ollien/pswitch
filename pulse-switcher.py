@@ -17,7 +17,7 @@ def get_sinks():
             is_current_active = item == "*"
             continue
         elif index % 3 == 1:
-            current_index = index
+            current_index = int(item)
             continue
         elif index % 3 == 2:
             #pacmd mixes tabs and spaces in its output. Go figure.
