@@ -35,15 +35,16 @@ def is_int(n):
         return False
 
 if __name__ == "__main__":
-    sources = get_sources()
-    print("Available Pulse Audio sources:")
-    for index, source in enumerate(sources):
-        print("\t{index}: {name}".format(index=index, name=source["device_name"]))
+    sinks = get_sinks()
+    print("Available Pulse Audio sink:")
+    for index, sink in enumerate(sinks):
+        print("\t{index}: {name}".format(index=index, name=sink["device_name"]))
     valid_input = False
+    selection = None
     while not valid_input:
         selection = input("? ")
-        valid_input = is_int(selection) and 0 <= int(selection) < len(sources)
+        valid_input = is_int(selection) and 0 <= int(selection) < len(sinks)
         selection = int(selection)
-    selected_source = sources[selection]
-    print("Selected {}".format(selected_source["device_name"]))
-    #TODO: Switch audio sources
+    selected_sink = sinks[selection]
+    print("Selected {}".format(selected_sink["device_name"]))
+    #TODO: Switch audio sinks
