@@ -33,6 +33,13 @@ def get_sink_input_indexes():
         index_matches = re.finditer(r"\s{4}index:\s(\d+)", pacmd_output.decode("utf-8"))
         return [int(index.groups()[0]) for index in index_matches]
 
+def set_sink_input(input_index, sink_index):
+    if type(input_index) == int:
+        input_index = str(input_index)
+    if type(sink_index) == int:
+        sink_index = str(sink_index)
+    subprocess.Popen(["pacmd", "move-sink-input", input_index, sink_index])
+
 def is_int(n):
     try:
         int(n)
