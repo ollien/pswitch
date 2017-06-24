@@ -51,14 +51,7 @@ def switch_to_sink(sink_index):
     for input_index in inputs:
         set_sink_input(input_index, sink_index)
 
-def is_int(n):
-    try:
-        int(n)
-        return True
-    except ValueError:
-        return False
-
-if __name__ == "__main__":
+def print_menu_and_get_index():
     sinks = get_sinks()
     print("Available Pulse Audio sinks:")
     for index, sink in enumerate(sinks):
@@ -69,5 +62,15 @@ if __name__ == "__main__":
         selection = input("? ")
         valid_input = is_int(selection) and 0 <= int(selection) < len(sinks)
     selection = int(selection)
-    sink_index = sinks[selection]["pulse_index"]
+    return sinks[selection]["pulse_index"]
+
+def is_int(n):
+    try:
+        int(n)
+        return True
+    except ValueError:
+        return False
+
+if __name__ == "__main__":
+    sink_index = print_menu_and_get_index()
     switch_to_sink(sink_index)
