@@ -23,7 +23,7 @@ def get_sinks():
             #pacmd mixes tabs and spaces in its output. Go figure.
             device_name_match = re.search(r"\t\tdevice.description\s=\s\"(.*)\"", item)
             device_name = device_name_match.groups()[0]
-            sink= {"pulse_index": current_index, "device_name": device_name}
+            sink = {"pulse_index": current_index, "device_name": device_name}
             sinks.append(sink)
     return sinks
 
