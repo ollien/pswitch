@@ -54,7 +54,7 @@ def is_int(n):
 
 if __name__ == "__main__":
     sinks = get_sinks()
-    print("Available Pulse Audio sink:")
+    print("Available Pulse Audio sinks:")
     for index, sink in enumerate(sinks):
         print("\t{index}: {name}".format(index=index, name=sink["device_name"]))
     valid_input = False
