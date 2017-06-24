@@ -79,6 +79,12 @@ def switch_to_sink(sink_index):
     for input_index in inputs:
         set_sink_input(input_index, sink_index)
 
+def switch_to_source(source_index):
+    set_default_source(source_index)
+    outputs = get_source_output_indexes()
+    for output_index in outputs:
+        set_source_output(output_index, source_index)
+
 def print_menu_and_get_index():
     sinks = get_sinks()
     print("Available Pulse Audio sinks:")
