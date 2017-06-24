@@ -130,9 +130,8 @@ if __name__ == "__main__":
         elif sys.argv[1].lower() in ("i", "input"):
             switch_to_source(int(sys.argv[2]))
     else:
-        print("""
-        Usage: pulse-switcher type [index]
-        Where:
-            type is input or output
-            index is a pulse audio sink index or source index
-        """)
+        print((
+        "Usage: pulse-switcher type [index]\n"
+        "Where:\n"
+        "    type is i[nput] or o[utput]\n"
+        "    index is a pulse audio sink index or source index"))
