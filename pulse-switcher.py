@@ -8,6 +8,7 @@ def get_sources():
     pacmd_output, _ = subprocess.Popen("pacmd list-sources",
                 shell=True, stdout=subprocess.PIPE).communicate()
     return parse_pacmd_list_output(pacmd_output)
+
 def get_sinks():
     pacmd_output, _ = subprocess.Popen("pacmd list-sinks",
                 shell=True, stdout=subprocess.PIPE).communicate()
