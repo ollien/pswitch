@@ -46,6 +46,7 @@ def get_source_output_indexes():
                 shell = True, stdout=subprocess.PIPE).communicate()
     return get_indexes_from_pacmd_output(pacmd_output)
 
+#Will parse output from pacmd list-source-outputs and pacmd list-sink-outputs
 def get_indexes_from_pacmd_output(pacmd_output):
     index_matches = re.finditer(r"\s{4}index:\s(\d+)", pacmd_output.decode("utf-8"))
     return [int(index.groups()[0]) for index in index_matches]
@@ -118,6 +119,7 @@ def check_type_arg_validity(arg):
     return arg.lower() in ("o", "output", "i", "input")
 
 if __name__ == "__main__":
+    #Check if command is pulse-switcher.py i[nput] or o[utput]
     if len(sys.argv) == 2 and check_type_arg_validity(sys.argv[1]):
         if sys.argv[1].lower() in ("o", "output"):
             sink_index = print_menu_and_get_index("sink")
@@ -125,6 +127,7 @@ if __name__ == "__main__":
         elif sys.argv[1].lower() in ("i", "input"):
             source_index = print_menu_and_get_index("source")
             switch_to_source(source_index)
+    #Check if command is pulse-switcher.py i[nput] or o[utput] n
     elif len(sys.argv) == 3 and is_int(sys.argv[2]) and check_type_arg_validity(sys.argv[1]):
         if sys.argv[1].lower() in ("o", "output"):
             switch_to_sink(int(sys.argv[2]))
