@@ -34,7 +34,7 @@ def is_int(n):
 def check_type_arg_validity(arg):
     return arg.lower() in ("o", "output", "i", "input")
 
-if __name__ == "__main__":
+def main():
     #Check if command is pulse-switcher.py i[nput] or o[utput]
     if len(sys.argv) == 2 and check_type_arg_validity(sys.argv[1]):
         if sys.argv[1].lower() in ("o", "output"):
@@ -55,3 +55,6 @@ if __name__ == "__main__":
         "Where:\n"
         "    type is i[nput] or o[utput]\n"
         "    index is a pulse audio sink index or source index"))
+
+if __name__ == "__main__":
+    main()
