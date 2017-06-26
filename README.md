@@ -7,6 +7,11 @@ A Python script to switch all Pulse Audio inputs/outputs to a single source/sink
 ### Installation
 Simply run `pip install --user .`
 
+### Dependencies
+
+* pulseaudio
+* python3
+
 ### Usage
 
 If you don't wish to install pulse switch, replace `pswitch` with `python -m pswitch`
