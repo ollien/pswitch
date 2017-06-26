@@ -1,18 +1,21 @@
 import subprocess
 import re
 
+
 def get_sources():
     pacmd_output = subprocess.check_output("pacmd list-sources", shell=True)
     return parse_pacmd_list_output(pacmd_output)
+
 
 def get_sinks():
     pacmd_output  = subprocess.check_output("pacmd list-sinks", shell=True)
     return parse_pacmd_list_output(pacmd_output)
 
+
 # Will parse output from pacmd list-sinks and pacmd list-sources
 def parse_pacmd_list_output(pacmd_output):
     raw_sources = re.split(r"\s\s(\s|\*)\sindex:\s(\d+)",
-            pacmd_output.decode("utf-8"))[1:]
+                            pacmd_output.decode("utf-8"))[1:]
     sources = []
     current_index = None
     is_current_active = False
@@ -27,6 +30,7 @@ def parse_pacmd_list_output(pacmd_output):
             # pacmd mixes tabs and spaces in its output. Go figure.
             device_name_match = re.search(r"\t\tdevice.description\s=\s\"(.*)\"", item)
             device_name = device_name_match.groups()[0]
+            deviceName += " (active default)" if is_current_active else ""
             source = {"pulse_index": current_index, "device_name": device_name}
             sources.append(source)
     return sources
