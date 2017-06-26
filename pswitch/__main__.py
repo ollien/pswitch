@@ -51,7 +51,7 @@ def main():
             pulse.switch_to_source(int(sys.argv[2]))
     else:
         print((
-        "Usage: pulse-switcher type [index]\n"
+        "Usage: pswitch type [index]\n"
         "Where:\n"
         "    type is i[nput] or o[utput]\n"
         "    index is a pulse audio sink index or source index"))
