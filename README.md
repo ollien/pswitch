@@ -4,13 +4,14 @@ A Python script to switch all Pulse Audio inputs/outputs to a single source/sink
 
 ![Icon](https://raw.githubusercontent.com/ollien/pswitch/master/icon.png)
 
-### Installation
+### Installation (requres pip)
 Simply run `pip install --user .`
 
 ### Dependencies
 
 * pulseaudio
 * python3
+* pip (for perscribed installation method)
 
 ### Usage
 
