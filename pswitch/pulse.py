@@ -32,11 +32,11 @@ def parse_pacmd_list_output(pacmd_output):
     return sources
 
 def get_sink_input_indexes():
-    pacmd_output = subprocess.check_output("pacmd list-sink-inputs", shell = True)
+    pacmd_output = subprocess.check_output("pacmd list-sink-inputs", shell=True)
     return get_indexes_from_pacmd_output(pacmd_output)
 
 def get_source_output_indexes():
-    pacmd_output = subprocess.check_output("pacmd list-source-outputs", shell = True)
+    pacmd_output = subprocess.check_output("pacmd list-source-outputs", shell=True)
     return get_indexes_from_pacmd_output(pacmd_output)
 
 #Will parse output from pacmd list-source-outputs and pacmd list-sink-outputs
