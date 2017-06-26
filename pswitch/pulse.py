@@ -2,13 +2,11 @@ import subprocess
 import re
 
 def get_sources():
-    pacmd_output, _ = subprocess.Popen("pacmd list-sources",
-                shell=True, stdout=subprocess.PIPE).communicate()
+    pacmd_output = subprocess.check_output("pacmd list-sources", shell=True)
     return parse_pacmd_list_output(pacmd_output)
 
 def get_sinks():
-    pacmd_output, _ = subprocess.Popen("pacmd list-sinks",
-                shell=True, stdout=subprocess.PIPE).communicate()
+    pacmd_output  = subprocess.check_output("pacmd list-sinks", shell=True)
     return parse_pacmd_list_output(pacmd_output)
 
 #Will parse output from pacmd list-sinks and pacmd list-sources
@@ -34,13 +32,11 @@ def parse_pacmd_list_output(pacmd_output):
     return sources
 
 def get_sink_input_indexes():
-    pacmd_output, _ = subprocess.Popen("pacmd list-sink-inputs",
-                shell = True, stdout=subprocess.PIPE).communicate()
+    pacmd_output = subprocess.check_output("pacmd list-sink-inputs", shell = True)
     return get_indexes_from_pacmd_output(pacmd_output)
 
 def get_source_output_indexes():
-    pacmd_output, _ = subprocess.Popen("pacmd list-source-outputs",
-                shell = True, stdout=subprocess.PIPE).communicate()
+    pacmd_output = subprocess.check_output("pacmd list-source-outputs", shell = True)
     return get_indexes_from_pacmd_output(pacmd_output)
 
 #Will parse output from pacmd list-source-outputs and pacmd list-sink-outputs
