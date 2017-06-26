@@ -11,7 +11,7 @@ Simply run `pip install --user .`
 
 * pulseaudio
 * python3
-* pip (for perscribed installation method)
+* pip (for prescribed installation method)
 
 ### Usage
 
