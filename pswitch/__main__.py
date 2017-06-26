@@ -3,6 +3,7 @@
 from . import pulse
 import sys
 
+#Print menu and get the index of the Pulse Audio device selected
 def print_menu_and_get_index(device_type):
     devices = None
     if device_type == "sink":
