@@ -30,8 +30,11 @@ def parse_pacmd_list_output(pacmd_output):
             # pacmd mixes tabs and spaces in its output. Go figure.
             device_name_match = re.search(r"\t\tdevice.description\s=\s\"(.*)\"", item)
             device_name = device_name_match.groups()[0]
-            deviceName += " (active default)" if is_current_active else ""
-            source = {"pulse_index": current_index, "device_name": device_name}
+            source = {
+                        "pulse_index": current_index,
+                        "device_name": device_name,
+                        "active": is_current_active
+                    }
             sources.append(source)
     return sources
 
