@@ -1,13 +1,15 @@
-# Pulse Switch
+# PSwitch
 
-A simple python script to switch all Pulse Audio inputs/outputs to a single source/sink.
+A Python script to switch all Pulse Audio inputs/outputs to a single source/sink.
+
+![Icon](https://raw.githubusercontent.com/ollien/pswitch/master/icon.png)
 
 ### Installation
 Simply run `pip install --user .`
 
 ### Usage
 
-If you don't wish to install pulse switch, replace `pswitch` with `python -m pulseswitch`
+If you don't wish to install pulse switch, replace `pswitch` with `python -m pswitch`
 
 `pswitch o[utput]`
 
