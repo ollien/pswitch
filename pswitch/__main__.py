@@ -2,7 +2,6 @@
 
 from . import pulse
 import sys
-
 # Print menu and get the index of the Pulse Audio device selected
 def print_menu_and_get_index(device_type):
     devices = None
@@ -15,7 +14,10 @@ def print_menu_and_get_index(device_type):
     else:
         raise ValueError("device_type must be either sink or source")
     for index, device in enumerate(devices):
-        print("\t{index}: {name}".format(index=index, name=device["device_name"]))
+        print("\t{index}: {active_indicator}{name}".format(
+            index=index,
+            active_indicator="(active device) " if device["active"] else "",
+            name=device["device_name"]))
     valid_input = False
     selection = None
     while not valid_input:
