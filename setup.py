@@ -6,6 +6,7 @@ setup(
     author="ollien",
     author_email="nick@ollien.com",
     url="https://github.com/ollien/pswitch",
+    python_requires=">=3.0",
     packages=["pswitch"],
     entry_points={
         "console_scripts": [
