@@ -14,12 +14,12 @@ def get_sinks():
 
 # Will parse output from pacmd list-sinks and pacmd list-sources
 def parse_pacmd_list_output(pacmd_output):
-    raw_sources = re.split(r"\s\s(\s|\*)\sindex:\s(\d+)",
+    raw_devices = re.split(r"\s\s(\s|\*)\sindex:\s(\d+)",
                             pacmd_output.decode("utf-8"))[1:]
-    sources = []
+    devices = []
     current_index = None
     is_current_active = False
-    for index, item in enumerate(raw_sources):
+    for index, item in enumerate(raw_devices):
         if index % 3 == 0:
             is_current_active = item == "*"
             continue
@@ -30,13 +30,13 @@ def parse_pacmd_list_output(pacmd_output):
             # pacmd mixes tabs and spaces in its output. Go figure.
             device_name_match = re.search(r"\t\tdevice.description\s=\s\"(.*)\"", item)
             device_name = device_name_match.groups()[0]
-            source = {
+            device = {
                         "pulse_index": current_index,
                         "device_name": device_name,
                         "active": is_current_active
                     }
-            sources.append(source)
-    return sources
+            devices.append(device)
+    return devices
 
 def get_sink_input_indexes():
     pacmd_output = subprocess.check_output("pacmd list-sink-inputs", shell=True)
