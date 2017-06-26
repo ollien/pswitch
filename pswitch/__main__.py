@@ -1,9 +1,9 @@
-#! /usr/bin/env python3
+# ! /usr/bin/env python3
 
 from . import pulse
 import sys
 
-#Print menu and get the index of the Pulse Audio device selected
+# Print menu and get the index of the Pulse Audio device selected
 def print_menu_and_get_index(device_type):
     devices = None
     if device_type == "sink":
@@ -31,12 +31,12 @@ def is_int(n):
     except ValueError:
         return False
 
-#Returns true if arg is "o", "output", "i", or "input"
+# Returns true if arg is "o", "output", "i", or "input"
 def check_type_arg_validity(arg):
     return arg.lower() in ("o", "output", "i", "input")
 
 def main():
-    #Check if command is pulse-switcher.py i[nput] or o[utput]
+    # Check if command is pulse-switcher.py i[nput] or o[utput]
     if len(sys.argv) == 2 and check_type_arg_validity(sys.argv[1]):
         if sys.argv[1].lower() in ("o", "output"):
             sink_index = print_menu_and_get_index("sink")
@@ -44,7 +44,7 @@ def main():
         elif sys.argv[1].lower() in ("i", "input"):
             source_index = print_menu_and_get_index("source")
             pulse.switch_to_source(source_index)
-    #Check if command is pulse-switcher.py i[nput] or o[utput] n
+    # Check if command is pulse-switcher.py i[nput] or o[utput] n
     elif len(sys.argv) == 3 and is_int(sys.argv[2]) and check_type_arg_validity(sys.argv[1]):
         if sys.argv[1].lower() in ("o", "output"):
             pulse.switch_to_sink(int(sys.argv[2]))

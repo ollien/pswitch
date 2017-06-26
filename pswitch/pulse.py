@@ -9,7 +9,7 @@ def get_sinks():
     pacmd_output  = subprocess.check_output("pacmd list-sinks", shell=True)
     return parse_pacmd_list_output(pacmd_output)
 
-#Will parse output from pacmd list-sinks and pacmd list-sources
+# Will parse output from pacmd list-sinks and pacmd list-sources
 def parse_pacmd_list_output(pacmd_output):
     raw_sources = re.split(r"\s\s(\s|\*)\sindex:\s(\d+)",
             pacmd_output.decode("utf-8"))[1:]
@@ -24,7 +24,7 @@ def parse_pacmd_list_output(pacmd_output):
             current_index = int(item)
             continue
         elif index % 3 == 2:
-            #pacmd mixes tabs and spaces in its output. Go figure.
+            # pacmd mixes tabs and spaces in its output. Go figure.
             device_name_match = re.search(r"\t\tdevice.description\s=\s\"(.*)\"", item)
             device_name = device_name_match.groups()[0]
             source = {"pulse_index": current_index, "device_name": device_name}
@@ -39,7 +39,7 @@ def get_source_output_indexes():
     pacmd_output = subprocess.check_output("pacmd list-source-outputs", shell=True)
     return get_indexes_from_pacmd_output(pacmd_output)
 
-#Will parse output from pacmd list-source-outputs and pacmd list-sink-outputs
+# Will parse output from pacmd list-source-outputs and pacmd list-sink-outputs
 def get_indexes_from_pacmd_output(pacmd_output):
     index_matches = re.finditer(r"\s{4}index:\s(\d+)", pacmd_output.decode("utf-8"))
     return [int(index.groups()[0]) for index in index_matches]
