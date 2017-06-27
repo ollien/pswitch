@@ -2,6 +2,8 @@
 
 from . import pulse
 import sys
+
+
 # Print menu and get the index of the Pulse Audio device selected
 def print_menu_and_get_index(device_type):
     devices = None
@@ -26,6 +28,7 @@ def print_menu_and_get_index(device_type):
     selection = int(selection)
     return devices[selection]["pulse_index"]
 
+
 def is_int(n):
     try:
         int(n)
@@ -33,9 +36,11 @@ def is_int(n):
     except ValueError:
         return False
 
+
 # Returns true if arg is "o", "output", "i", or "input"
 def check_type_arg_validity(arg):
     return arg.lower() in ("o", "output", "i", "input")
+
 
 def main():
     # Check if command is pulse-switcher.py i[nput] or o[utput]
@@ -47,17 +52,19 @@ def main():
             source_index = print_menu_and_get_index("source")
             pulse.switch_to_source(source_index)
     # Check if command is pulse-switcher.py i[nput] or o[utput] n
-    elif len(sys.argv) == 3 and is_int(sys.argv[2]) and check_type_arg_validity(sys.argv[1]):
+    elif (len(sys.argv) == 3 and is_int(sys.argv[2])
+          and check_type_arg_validity(sys.argv[1])):
         if sys.argv[1].lower() in ("o", "output"):
             pulse.switch_to_sink(int(sys.argv[2]))
         elif sys.argv[1].lower() in ("i", "input"):
             pulse.switch_to_source(int(sys.argv[2]))
     else:
         print((
-        "Usage: pswitch type [index]\n"
-        "Where:\n"
-        "    type is i[nput] or o[utput]\n"
-        "    index is a pulse audio sink index or source index"))
+            "Usage: pswitch type [index]\n"
+            "Where:\n"
+            "    type is i[nput] or o[utput]\n"
+            "    index is a pulse audio sink index or source index"))
+
 
 if __name__ == "__main__":
     main()
