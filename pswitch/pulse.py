@@ -1,6 +1,15 @@
 import subprocess
 import re
 
+# Regex used to find the index of devices in pacmd list-sinks,
+# pacmd list-sources, pacmd list-source-outputs and pacmd list-sink-outputs
+# It's worth nothing that this regex requires spaces, while other regexes
+# require tabs. Go figure.
+DEVICE_INDEX_REGEX = re.compile(r"\s\s(\s|\*)\sindex:\s(\d+)")
+# Regex used to pull the device name (or description, as Pulse calls it) from
+# pacmd list-sinks and pacmd list-sources.
+DEVICE_DESCRIPTION_REGEX = re.compile(r"\t\tdevice.description\s=\s\"(.*)\"")
+
 
 def get_sources():
     pacmd_output = subprocess.check_output("pacmd list-sources", shell=True)
@@ -14,7 +23,7 @@ def get_sinks():
 
 # Will parse output from pacmd list-sinks and pacmd list-sources
 def parse_pacmd_list_output(pacmd_output):
-    raw_devices = re.split(r"\s\s(\s|\*)\sindex:\s(\d+)",
+    raw_devices = re.split(DEVICE_INDEX_REGEX,
                            pacmd_output.decode("utf-8"))[1:]
     devices = []
     current_index = None
@@ -27,8 +36,7 @@ def parse_pacmd_list_output(pacmd_output):
             current_index = int(item)
             continue
         elif index % 3 == 2:
-            # pacmd mixes tabs and spaces in its output. Go figure.
-            device_name_match = re.search(r"\t\tdevice.description\s=\s\"(.*)\"", item)
+            device_name_match = re.search(DEVICE_DESCRIPTION_REGEX, item)
             device_name = device_name_match.groups()[0]
             device = {
                         "pulse_index": current_index,
@@ -53,7 +61,7 @@ def get_source_output_indexes():
 
 # Will parse output from pacmd list-source-outputs and pacmd list-sink-outputs
 def get_indexes_from_pacmd_output(pacmd_output):
-    index_matches = re.finditer(r"\s{4}index:\s(\d+)",
+    index_matches = re.finditer(DEVICE_INDEX_REGEX,
                                 pacmd_output.decode("utf-8"))
     return [int(index.groups()[0]) for index in index_matches]
 
