@@ -6,6 +6,15 @@ import sys
 
 # Print menu and get the index of the Pulse Audio device selected
 def print_menu_and_get_index(device_type):
+    """Print menu for pswitch based on the device_type.
+
+    Args:
+        device_type (str): must be "sink" or "source".
+
+    Returns:
+        Returns the index of the sink/source that was selected.
+    """
+
     devices = None
     if device_type == "sink":
         devices = pulse.get_sinks()
@@ -39,10 +48,23 @@ def is_int(n):
 
 # Returns true if arg is "o", "output", "i", or "input"
 def check_type_arg_validity(arg):
+    """Checks if cli argument is either o, output, i, or input.
+
+    Args:
+        arg (str): cli argument to check validity of.
+
+    Returns:
+        bool
+    """
+
     return arg.lower() in ("o", "output", "i", "input")
 
 
 def main():
+    """Main function for pswitch. Runs if __name__ == __main__. Is also default
+    command line entry point in setup.py.
+    """
+
     # Check if command is pulse-switcher.py i[nput] or o[utput]
     if len(sys.argv) == 2 and check_type_arg_validity(sys.argv[1]):
         if sys.argv[1].lower() in ("o", "output"):
