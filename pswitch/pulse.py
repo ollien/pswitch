@@ -78,6 +78,18 @@ def parse_pacmd_list_output(pacmd_output):
 
 
 def get_single_sink(sink_index):
+    """Get the details of the sink with the index given by source_index
+
+    Args:
+        sink_index (int): The index of the device of which the details
+            should be retrieved
+    Returns:
+        Returns dict that contains the sink's/sink's index in Pulse Audio
+        (with key 'pulse_index'), the sink's/sink's name (with key
+        'device_name') and whether or not it's actively the default
+        sink (with key 'active').
+    """
+
     if type(sink_index) == int:
         sink_index = str(sink_index)
     pacmd_output = subprocess.check_output("pacmd list-sinks", shell=True)
