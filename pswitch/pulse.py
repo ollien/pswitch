@@ -77,6 +77,27 @@ def parse_pacmd_list_output(pacmd_output):
     return devices
 
 
+def get_single_device_from_pacmd_output(pacmd_output, pulse_index):
+    single_index_regex = (r"\s\s(\s|*)\sindex:\s{index}"
+                          .format(index=pulse_index))
+    index_match = re.search(single_index_regex, pacmd_output)
+    if index_match is None:
+        return None
+    is_device_active = 'index_match.groups()[0] == "*"'
+    # Get the index of the end of the match, and look for the device
+    # name from there. re.search will find the first match, meaning
+    # it will be the name of the device with the index pulse_index
+    minimum_index = index_match.end(1)
+    device_name = re.search(DEVICE_DESCRIPTION_REGEX,
+                            pacmd_output[minimum_index:]).groups()[0]
+    device = {
+                "pulse_index": pulse_index,
+                "device_name": device_name,
+                "active": is_device_active
+            }
+    return device
+
+
 def get_sink_input_indexes():
     """Gets the indexes of all sinks.
 
