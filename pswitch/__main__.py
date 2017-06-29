@@ -4,7 +4,6 @@ from . import pulse
 import sys
 
 
-# Print menu and get the index of the Pulse Audio device selected
 def print_menu_and_get_device(device_type):
     """Print menu for pswitch based on the device_type.
 
@@ -46,7 +45,6 @@ def is_int(n):
         return False
 
 
-# Returns true if arg is "o", "output", "i", or "input"
 def check_type_arg_validity(arg):
     """Checks if cli argument is either o, output, i, or input.
 
