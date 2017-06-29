@@ -27,7 +27,7 @@ def print_menu_and_get_index(device_type):
     for index, device in enumerate(devices):
         print("\t{index}: {active_indicator}{name}".format(
             index=index,
-            active_indicator="(active device) " if device["active"] else "",
+            active_indicator="(active default) " if device["active"] else "",
             name=device["device_name"]))
     valid_input = False
     selection = None
@@ -77,8 +77,12 @@ def main():
     elif (len(sys.argv) == 3 and is_int(sys.argv[2])
           and check_type_arg_validity(sys.argv[1])):
         if sys.argv[1].lower() in ("o", "output"):
+            sink_name = pulse.get_single_sink(sys.argv[2])["device_name"]
+            print("Switching to sink \"{}\"...".format(sink_name))
             pulse.switch_to_sink(int(sys.argv[2]))
         elif sys.argv[1].lower() in ("i", "input"):
+            source_name = pulse.get_single_source(sys.argv[2])["device_name"]
+            print("Switched to source \"{}\"...".format(source_name))
             pulse.switch_to_source(int(sys.argv[2]))
     else:
         print((
