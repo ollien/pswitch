@@ -85,6 +85,18 @@ def get_single_sink(sink_index):
 
 
 def get_single_source(source_index):
+    """Get the details of the source with the index given by source_index
+
+    Args:
+        source_index (int): The index of the device of which the details
+            should be retrieved
+    Returns:
+        Returns dict that contains the source's/sink's index in Pulse Audio
+        (with key 'pulse_index'), the sink's/source's name (with key
+        'device_name') and whether or not it's actively the default
+        source (with key 'active').
+    """
+
     if type(source_index) == int:
         source_index = str(source_index)
     pacmd_output = subprocess.check_output("pacmd list-sources", shell=True)
