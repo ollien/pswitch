@@ -68,11 +68,13 @@ def main():
     # Check if command is pulse-switcher.py i[nput] or o[utput]
     if len(sys.argv) == 2 and check_type_arg_validity(sys.argv[1]):
         if sys.argv[1].lower() in ("o", "output"):
-            sink_index = print_menu_and_get_index("sink")
-            pulse.switch_to_sink(sink_index)
+            sink = print_menu_and_get_device("sink")
+            sink_name = sink["device_name"]
+            print("Switching to sink \"{}\"...".format(sink_name))
         elif sys.argv[1].lower() in ("i", "input"):
-            source_index = print_menu_and_get_index("source")
-            pulse.switch_to_source(source_index)
+            source = print_menu_and_get_device("source")
+            source_name = source["device_name"]
+            print("Switching to source \"{}\"...".format(source_name))
     # Check if command is pulse-switcher.py i[nput] or o[utput] n
     elif (len(sys.argv) == 3 and is_int(sys.argv[2])
           and check_type_arg_validity(sys.argv[1])):
