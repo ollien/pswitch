@@ -84,6 +84,13 @@ def get_single_sink(pulse_index):
     return get_single_device_from_pacmd_output(pacmd_output, pulse_index)
 
 
+def get_single_source(pulse_index):
+    if type(pulse_index) == int:
+        pulse_index = str(pulse_index)
+    pacmd_output = subprocess.check_output("pacmd list-sources", shell=True)
+    return get_single_device_from_pacmd_output(pacmd_output, pulse_index)
+
+
 def get_single_device_from_pacmd_output(pacmd_output, pulse_index):
     single_index_regex = (r"\s\s(\s|*)\sindex:\s{index}"
                           .format(index=pulse_index))
