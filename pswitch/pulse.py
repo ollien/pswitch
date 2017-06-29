@@ -115,7 +115,7 @@ def get_indexes_from_pacmd_output(pacmd_output):
 
     index_matches = re.finditer(DEVICE_INDEX_REGEX,
                                 pacmd_output.decode("utf-8"))
-    return [int(index.groups()[0]) for index in index_matches]
+    return [int(index.groups()[1]) for index in index_matches]
 
 
 def set_sink_input(input_index, sink_index):
