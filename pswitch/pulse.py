@@ -77,21 +77,35 @@ def parse_pacmd_list_output(pacmd_output):
     return devices
 
 
-def get_single_sink(pulse_index):
-    if type(pulse_index) == int:
-        pulse_index = str(pulse_index)
+def get_single_sink(sink_index):
+    if type(sink_index) == int:
+        sink_index = str(sink_index)
     pacmd_output = subprocess.check_output("pacmd list-sinks", shell=True)
-    return get_single_device_from_pacmd_output(pacmd_output, pulse_index)
+    return get_single_device_from_pacmd_output(pacmd_output, sink_index)
 
 
-def get_single_source(pulse_index):
-    if type(pulse_index) == int:
-        pulse_index = str(pulse_index)
+def get_single_source(source_index):
+    if type(source_index) == int:
+        source_index = str(source_index)
     pacmd_output = subprocess.check_output("pacmd list-sources", shell=True)
-    return get_single_device_from_pacmd_output(pacmd_output, pulse_index)
+    return get_single_device_from_pacmd_output(pacmd_output, source_index)
 
 
 def get_single_device_from_pacmd_output(pacmd_output, pulse_index):
+    """Get the details of the sink/source with the index given by pulse_index
+
+    Args:
+        pacmd_output (bytes): output from pacmd list-sinks
+            or pacmd list-sources
+        pulse_index (int): The index of the device of which the details
+            should be retrieved
+    Returns:
+        Returns dict that contains the source's/sink's index in Pulse Audio
+        (with key 'pulse_index'), the sink's/source's name (with key
+        'device_name') and whether or not it's actively the default
+        sink/source (with key 'active').
+    """
+
     single_index_regex = (r"\s\s(\s|\*)\sindex:\s{index}"
                           .format(index=pulse_index))
     decoded_output = pacmd_output.decode("utf-8")
