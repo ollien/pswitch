@@ -43,7 +43,7 @@ def parse_pacmd_list_output(pacmd_output):
     """Parse the output from pacmd list-sinks and pacmd list-sources.
 
     Args:
-        pacmd_output (str): the output from either pacmd list-sinks
+        pacmd_output (bytes): the output from either pacmd list-sinks
             or pacmd list-sources.
 
     Returns:
@@ -179,7 +179,7 @@ def get_indexes_from_pacmd_output(pacmd_output):
     """Parses output from pacmd list-source-outputs and pacmd list-sink-inputs.
 
     Args:
-        pacmd_output (str): Otuput from pacmd list-sink-inputs or
+        pacmd_output (bytes): Otuput from pacmd list-sink-inputs or
             pacmd list-source-outputs.
 
     Returns:
