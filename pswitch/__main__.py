@@ -5,7 +5,7 @@ import sys
 
 
 # Print menu and get the index of the Pulse Audio device selected
-def print_menu_and_get_index(device_type):
+def print_menu_and_get_device(device_type):
     """Print menu for pswitch based on the device_type.
 
     Args:
@@ -35,7 +35,7 @@ def print_menu_and_get_index(device_type):
         selection = input("? ")
         valid_input = is_int(selection) and 0 <= int(selection) < len(devices)
     selection = int(selection)
-    return devices[selection]["pulse_index"]
+    return devices[selection]
 
 
 def is_int(n):
